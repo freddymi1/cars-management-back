@@ -8,14 +8,15 @@
  * delete('/:id') for deleting cars
  */
 const router = require("express").Router();
-const {verifyCar} = require("../middleware")
+const {verifyCar, authJwt} = require("../middleware")
 
-const CarsController = require("../controllers/cars.controller")
+const CarsController = require("../controllers/cars.controller");
+const { verifyToken } = require("../middleware/authJwt");
 
-router.post('/', [verifyCar.checkIfcarsNumExist], CarsController.AddCars)
-router.get('/:id', CarsController.getOneCar)
+router.post('/', [verifyCar.checkIfcarsNumExist, authJwt.verifyToken], CarsController.AddCars)
+router.get('/:id', [verifyCar.checkIfcarsNumExist, authJwt.verifyToken], CarsController.getOneCar)
 router.get('/', CarsController.getAllCar);
-router.put('/:id', CarsController.UpdateCar);
-router.delete('/:id', CarsController.DeleteCar);
+router.put('/:id', [verifyCar.checkIfcarsNumExist, authJwt.verifyToken], CarsController.UpdateCar);
+router.delete('/:id', [verifyCar.checkIfcarsNumExist, authJwt.verifyToken], CarsController.DeleteCar);
 
 module.exports = router;
