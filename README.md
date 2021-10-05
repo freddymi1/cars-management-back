@@ -11,7 +11,9 @@ Ouvrire le terminal
 
 Si l'installation est terminer, entre le commande suivant dans le terminal pour lancer le server
 
-## npm run server
+```bash
+npm ryn server
+```
 
 Apres, le serveur se lance
 
